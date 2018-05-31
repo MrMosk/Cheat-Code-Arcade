@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import models.*;
 
 public class Pong extends Applet implements Runnable, KeyListener {
+
 	final int WIDTH = 700, HEIGHT = 500;
 	Thread thread;
 	PlayerPaddle p1;
@@ -18,7 +19,6 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	boolean startGame;
 	Graphics special;
 	Image img;
-	
 
 	public void init() {
 		this.resize(WIDTH, HEIGHT);
@@ -40,19 +40,17 @@ public class Pong extends Applet implements Runnable, KeyListener {
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(special);
-			
-		}
-		else if(ball.getX() > 710) {		
+
+		} else if (ball.getX() > 710) {
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(special);
-		}
-		else {
+		} else {
 			p1.draw(special);
 			p2.draw(special);
 			ball.draw(special);
 		}
-		if(!startGame) {
+		if (!startGame) {
 			special.drawString("Press enter to begin", 310, 130);
 			special.drawString("Press P to pause", 290, 110);
 		}
@@ -96,8 +94,7 @@ public class Pong extends Applet implements Runnable, KeyListener {
 			p2.setGoingDown(true);
 		} else if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
 			startGame = true;
-		}
-		else if (ke.getKeyCode() == KeyEvent.VK_P) {
+		} else if (ke.getKeyCode() == KeyEvent.VK_P) {
 			startGame = false;
 		}
 	}
@@ -113,7 +110,6 @@ public class Pong extends Applet implements Runnable, KeyListener {
 		} else if (ke.getKeyCode() == KeyEvent.VK_K) {
 			p2.setGoingDown(false);
 		}
-
 	}
 
 	public void keyTyped(KeyEvent ke) {
