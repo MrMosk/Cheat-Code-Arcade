@@ -1,6 +1,8 @@
 package models;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
 	private String name;
 	private int score = 0;
@@ -20,5 +22,10 @@ public class Player {
 	public void setScore(int score) {
 		this.score = score;
 	}
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 }

@@ -34,6 +34,7 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	}
 
 	public void paint(Graphics g) {
+		// Background
 		special.setColor(Color.black);
 		special.fillRect(0, 0, WIDTH, HEIGHT);
 		if (ball.getX() < -10) {
@@ -41,10 +42,13 @@ public class Pong extends Applet implements Runnable, KeyListener {
 			ball.setY(250);
 			ball.draw(special);
 
+		// Centers & redraws ball
 		} else if (ball.getX() > 710) {
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(special);
+			
+		// Redraws paddles & ball
 		} else {
 			p1.draw(special);
 			p2.draw(special);

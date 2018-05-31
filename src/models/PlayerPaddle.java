@@ -27,7 +27,6 @@ public class PlayerPaddle implements Paddle {
 	public void draw(Graphics g) {
 		g.setColor(Color.white);
 		g.fillRect(x, (int) y, 20, 80);
-
 	}
 
 	public void setGoingUp(boolean input) {
