@@ -8,6 +8,12 @@ public class PlayerPaddle implements Paddle{
 	boolean goingUp, goingDown;
 	int player , x;
 	final double STOP = 0.90;
+	int paddleWidth = 20;
+	int paddleHeight = 80;
+	int p1Pos = 20;
+	int p2Pos = 660;
+	int p1TopScreen = 0;
+	int p2TopScreen = 420;
 
 	public PlayerPaddle(int player) {
 		goingUp = false;
@@ -15,11 +21,12 @@ public class PlayerPaddle implements Paddle{
 		y = 210;
 		yVol =0;
 		
+		
 		if(player == 1) {
-			x = 20;
+			x = p1Pos;
 		}
 		else {
-			x = 660;
+			x = p2Pos;
 		}
 	}
 	//test
@@ -27,7 +34,7 @@ public class PlayerPaddle implements Paddle{
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.white);
-		g.fillRect(x, (int)y, 20, 80);
+		g.fillRect(x, (int)y, paddleWidth, paddleHeight);
 		
 	}
 	public void setGoingUp(boolean input) {
@@ -58,11 +65,11 @@ public class PlayerPaddle implements Paddle{
 		y += yVol;
 		
 		
-		if(y<0) {
-			y=0;
+		if(y<p1TopScreen) {
+			y=p1TopScreen;
 		}
-		if(y> 420) {
-			y = 420;
+		if(y> p2TopScreen) {
+			y = p2TopScreen;
 		}
 	}
 
