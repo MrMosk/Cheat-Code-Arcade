@@ -22,7 +22,7 @@ public class PlayerPaddle implements Paddle{
 			x = 660;
 		}
 	}
-	
+	//test
 	
 	
 	public void draw(Graphics g) {
@@ -48,7 +48,22 @@ public class PlayerPaddle implements Paddle{
 		else if(!goingUp && !goingDown) {
 			yVol *= STOP;
 		}
+		if(yVol >= 5) {
+			yVol = 5;
+		}
+		else if(yVol <= -5) {
+			yVol = -5;
+		}
+		
 		y += yVol;
+		
+		
+		if(y<0) {
+			y=0;
+		}
+		if(y> 420) {
+			y = 420;
+		}
 	}
 
 
