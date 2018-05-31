@@ -7,6 +7,8 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import models.*;
+
 public class Pong extends Applet implements Runnable, KeyListener {
 	final int WIDTH = 700, HEIGHT = 500;
 	Thread thread;
@@ -16,6 +18,7 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	boolean startGame;
 	Graphics special;
 	Image img;
+	
 
 	public void init() {
 		this.resize(WIDTH, HEIGHT);
@@ -33,16 +36,25 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	public void paint(Graphics g) {
 		special.setColor(Color.black);
 		special.fillRect(0, 0, WIDTH, HEIGHT);
-		if (ball.getX() < -10 || ball.getX() > 710) {
-			special.setColor(Color.green);
-			special.drawString("Just testing for now", 350, 250);
-		} else {
+		if (ball.getX() < -10) {
+			ball.setX(350);
+			ball.setY(250);
+			ball.draw(special);
+			
+		}
+		else if(ball.getX() > 710) {		
+			ball.setX(350);
+			ball.setY(250);
+			ball.draw(special);
+		}
+		else {
 			p1.draw(special);
 			p2.draw(special);
 			ball.draw(special);
 		}
 		if(!startGame) {
 			special.drawString("Press enter to begin", 310, 130);
+			special.drawString("Press P to pause", 290, 110);
 		}
 		g.drawImage(img, 0, 0, this);
 	}
@@ -84,6 +96,9 @@ public class Pong extends Applet implements Runnable, KeyListener {
 			p2.setGoingDown(true);
 		} else if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
 			startGame = true;
+		}
+		else if (ke.getKeyCode() == KeyEvent.VK_P) {
+			startGame = false;
 		}
 	}
 

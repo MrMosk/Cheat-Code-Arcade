@@ -1,5 +1,6 @@
 package menu;
 
+import game.Pong;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -36,16 +37,15 @@ public class Menu extends Application {
  
             //create scene with set width, height and color
             Scene scene = new Scene(rootGroup, 600, 600, Color.WHITESMOKE);
- 
+            Pong ping = new Pong();
             //set scene to stage
             stage.setScene(scene);
  
             //set title to stage
             stage.setTitle("Pong alpha");
- 
             //center stage on screen
             stage.centerOnScreen();
- 
+           
             //show the stage
             stage.show();
  
