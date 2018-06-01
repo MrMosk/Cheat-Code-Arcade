@@ -11,7 +11,7 @@ import models.*;
 
 public class Pong extends Applet implements Runnable, KeyListener {
 
-	final int WIDTH = 700, HEIGHT = 500;
+	public final int WIDTH = 700, HEIGHT = 500;
 	Thread thread;
 	PlayerPaddle p1;
 	PlayerPaddle p2;
@@ -19,6 +19,10 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	boolean startGame;
 	Graphics special;
 	Image img;
+	Player player;
+	PlayerPaddle playerPaddle;
+	int p1Score;
+	int p2Score;
 
 	public void init() {
 		this.resize(WIDTH, HEIGHT);
@@ -37,27 +41,34 @@ public class Pong extends Applet implements Runnable, KeyListener {
 		// Background
 		special.setColor(Color.black);
 		special.fillRect(0, 0, WIDTH, HEIGHT);
+		
+		// Centers & redraws pall past p1 paddle
 		if (ball.getX() < -10) {
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(special);
-
-		// Centers & redraws ball
+		// Centers & redraws ball past p2 paddle
 		} else if (ball.getX() > 710) {
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(special);
-			
 		// Redraws paddles & ball
 		} else {
 			p1.draw(special);
 			p2.draw(special);
 			ball.draw(special);
 		}
+		
+		// At start, displays message
 		if (!startGame) {
 			special.drawString("Press enter to begin", 310, 130);
 			special.drawString("Press P to pause", 290, 110);
 		}
+		
+		special.setColor(Color.WHITE);
+		special.drawString("" + p1Score, WIDTH / 4, HEIGHT / 16);
+		special.drawString("" + p2Score, WIDTH / 4 * 3, HEIGHT / 16);
+		
 		g.drawImage(img, 0, 0, this);
 	}
 
@@ -76,14 +87,15 @@ public class Pong extends Applet implements Runnable, KeyListener {
 			}
 
 			repaint();
+			
+			//score();
+			
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e) {
-
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	public void keyPressed(KeyEvent ke) {
@@ -117,7 +129,17 @@ public class Pong extends Applet implements Runnable, KeyListener {
 	}
 
 	public void keyTyped(KeyEvent ke) {
-
+		// REQUIRED
+	}
+	
+	public void score() {
+		// P1 Scores
+		if (ball.getX() > WIDTH - 10) {
+			player.setP1Score(player.getP1Score() + 1);
+		//P2 Scores
+		} else if (ball.getX() < 10) {
+			player.setP2Score(player.getP2Score() + 1);
+		}
 	}
 
 }

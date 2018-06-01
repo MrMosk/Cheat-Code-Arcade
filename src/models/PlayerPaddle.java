@@ -78,5 +78,20 @@ public class PlayerPaddle implements Paddle{
 	
 		return (int)y;
 	}
+	
+	public int getPaddleWidth() {
+		
+		return paddleWidth;
+	}
+	
+	public int getP1Pos() {
+		
+		return p1Pos;
+	}
+	
+public int getP2Pos() {
+		
+		return p2Pos;
+	}
 
 }
