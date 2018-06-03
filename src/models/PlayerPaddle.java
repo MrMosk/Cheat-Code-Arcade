@@ -1,12 +1,12 @@
 package models;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 
-public class PlayerPaddle implements Paddle{
+public class PlayerPaddle implements Paddle {
 	double y, yVol;
 	boolean goingUp, goingDown;
-	int player , x;
+	int player, x;
 	final double STOP = 0.90;
 	int paddleWidth = 20;
 	int paddleHeight = 80;
@@ -19,78 +19,71 @@ public class PlayerPaddle implements Paddle{
 		goingUp = false;
 		goingDown = false;
 		y = 210;
-		yVol =0;
-		
-		
-		if(player == 1) {
+		yVol = 0;
+
+		if (player == 1) {
 			x = p1Pos;
-		}
-		else {
+		} else {
 			x = p2Pos;
 		}
 	}
-	//test
-	
-	
-	public void draw(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect(x, (int)y, paddleWidth, paddleHeight);
-		
+	// test
+
+	public void draw(GraphicsContext g) {
+		g.setFill(Color.WHITE);
+		g.fillRect(x, (int) y, paddleWidth, paddleHeight);
+
 	}
+
 	public void setGoingUp(boolean input) {
 		goingUp = input;
 	}
-	
+
 	public void setGoingDown(boolean input) {
 		goingDown = input;
 	}
-	
+
 	public void move() {
-		if(goingUp) {
+		if (goingUp) {
 			yVol -= 2;
-		}
-		else if (goingDown) {
+		} else if (goingDown) {
 			yVol += 2;
-		}
-		else if(!goingUp && !goingDown) {
+		} else if (!goingUp && !goingDown) {
 			yVol *= STOP;
 		}
-		if(yVol >= 5) {
+		if (yVol >= 5) {
 			yVol = 5;
-		}
-		else if(yVol <= -5) {
+		} else if (yVol <= -5) {
 			yVol = -5;
 		}
-		
+
 		y += yVol;
-		
-		
-		if(y<p1TopScreen) {
-			y=p1TopScreen;
+
+		if (y < p1TopScreen) {
+			y = p1TopScreen;
 		}
-		if(y> p2TopScreen) {
+		if (y > p2TopScreen) {
 			y = p2TopScreen;
 		}
 	}
 
-
 	public int getY() {
-	
-		return (int)y;
+
+		return (int) y;
 	}
-	
+
 	public int getPaddleWidth() {
-		
+
 		return paddleWidth;
 	}
-	
+
 	public int getP1Pos() {
-		
+
 		return p1Pos;
 	}
-	
-public int getP2Pos() {
-		
+
+	public int getP2Pos() {
+
 		return p2Pos;
 	}
 
