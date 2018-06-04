@@ -25,7 +25,13 @@ public class MenuController implements Initializable {
     
     @FXML
     void pongButtonClicked(MouseEvent event) {
-    
+        Stage stage = (Stage) pongButton.getScene().getWindow();
+        try {
+            GridPane grid = FXMLLoader.load(getClass().getResource("../PongUI.fxml"));
+            stage.setScene(new Scene(grid));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
