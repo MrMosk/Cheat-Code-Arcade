@@ -76,14 +76,6 @@ public class SubSnake implements Observable, Observer {
         return getPreviousPostion()[1];
     }
     
-    public ArrayList<Observer> getObservers() {     //returns the list of observers, intended to only contain 1 instance of SubSnake per SubSnake
-        return observers;
-    }
-    
-    public void setObservers(ArrayList<Observer> observers) {   //overwrites the observer list, should not be used
-        this.observers = observers;
-    }
-    
     @Override
     public void attach(Observer obs) {      //override from Observable
         observers.add(obs);     //adds the Observer, intended to be a subsequent SubSnake, to the list of observers, should only ever contain 1 subsnake

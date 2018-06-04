@@ -11,14 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import snake.app.Program;
-import snake.models.LeaderboardEntry;
 import snake.models.ObservableLeaderboardEntry;
 
 import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ResourceBundle;
 

@@ -31,16 +31,8 @@ public class FoodPellet {
 	    return getPostion()[0];
     }
     
-    public void setXPosition(int posX) {
-	    getPostion()[0] = posX;
-    }
-    
     public int getYPosition() {
 	    return getPostion()[1];
-    }
-    
-    public void setYPosition(int posY) {
-	    getPostion()[1] = posY;
     }
     
 }

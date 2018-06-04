@@ -50,14 +50,10 @@ public class SnakeGameController implements Initializable, Observer {
     
                     case LEFT:  //if the key pressed is "left"
                         
-                        System.out.println("pushed left");
-                        
                         Program.getSnake().setDirection(SnakeDirection.LEFT);   //sets snake direction to "left"
                         break;
     
                     case RIGHT:  //if the key pressed is "right"
-                        
-                        System.out.println("pushed right");
                         
                         Program.getSnake().setDirection(SnakeDirection.RIGHT);   //sets snake direction to "right"
                         break;
@@ -71,14 +67,10 @@ public class SnakeGameController implements Initializable, Observer {
     
                     case LEFT:  //if the key pressed is "left"
                         
-                        System.out.println("pushed left");
-                        
                         Program.getSnake().setDirection(SnakeDirection.LEFT);   //sets snake direction to "left"
                         break;
     
                     case RIGHT:  //if the key pressed is "right"
-                        
-                        System.out.println("pushed right");
                         
                         Program.getSnake().setDirection(SnakeDirection.RIGHT);   //sets snake direction to "right"
                         break;
@@ -90,14 +82,10 @@ public class SnakeGameController implements Initializable, Observer {
                     
                     case UP:  //if the key pressed is "up"
                         
-                        System.out.println("pushed up");
-                        
                         Program.getSnake().setDirection(SnakeDirection.UP);   //sets snake direction to "up"
                         break;
     
                     case DOWN:  //if the key pressed is "down"
-                        
-                        System.out.println("pushed down");
                         
                         Program.getSnake().setDirection(SnakeDirection.DOWN);   //sets snake direction to "down"
                         break;
@@ -113,14 +101,10 @@ public class SnakeGameController implements Initializable, Observer {
                     
                     case UP:  //if the key pressed is "up"
                         
-                        System.out.println("pushed up");
-                        
                         Program.getSnake().setDirection(SnakeDirection.UP);   //sets snake direction to "up"
                         break;
     
                     case DOWN:  //if the key pressed is "down"
-                        
-                        System.out.println("pushed down");
                         
                         Program.getSnake().setDirection(SnakeDirection.DOWN);   //sets snake direction to "down"
                         
@@ -178,13 +162,11 @@ public class SnakeGameController implements Initializable, Observer {
                     } else {    //else sets the pieces square to black, representing a snake piece
     
                         if (rectangles[subSnake.getXPosition()][subSnake.getYPosition()].getFill().equals(Color.RED)) {
-                            //((Snake) subject).grow();
                             snakeIsGrowing = true;
                             rectangles[subSnake.getXPosition()][subSnake.getYPosition()].setFill(Color.BLACK);
-//                            period -= 100;
-    
+                            
                             score++;
-    
+                            
                             Platform.runLater(() -> scoreSnake.setText(Integer.toString(score)));
                             
                             do {
@@ -232,37 +214,6 @@ public class SnakeGameController implements Initializable, Observer {
                 @Override
                 public void run() {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/snakeEndGameUI.fxml"));
-
-                    
-//                    Stage stage = new Stage();
-//                    try {
-//                        stage.setScene(new Scene((Pane) loader.load(), 600, 400));
-//                    } catch (IOException e1) {
-//                        e1.printStackTrace();
-//                    }
-//
-//                    SnakeEndGameController endGameController = loader.getController();
-    
-                    System.out.println(score);
-                    
-//                    endGameController.initData(score);
-//
-//                    System.out.println(score);
-//
-//                    stage.show();
-                    
-                    
-//                    Stage stage = (Stage) scoreSnake.getScene().getWindow();
-//                    try {
-//
-//                        GridPane grid = loader.load();
-//                        stage.setScene(new Scene(grid,600,400));
-//
-//
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-                    
                     
                     SnakeEndGameController controller;
     
@@ -282,8 +233,6 @@ public class SnakeGameController implements Initializable, Observer {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-    
-    
                 }
             });
         }

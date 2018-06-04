@@ -18,7 +18,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SnakeEndGameController implements Initializable {
-    //private int score = 0;
     
     @FXML
     private Label scoreLabel;
@@ -50,7 +49,6 @@ public class SnakeEndGameController implements Initializable {
     void saveButtonClicked(MouseEvent event) {
         Program.getObservableLeaderboard().add(new ObservableLeaderboardEntry(nameField.getText(),Integer.parseInt(scoreLabel.getText())));
         
-//        Program.getLeaderboard().getScores().add(new LeaderboardEntry(nameField.getText(),Integer.parseInt(scoreLabel.getText())));
         exitButtonClicked(event);
     }
     

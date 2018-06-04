@@ -78,7 +78,6 @@ public class Snake implements Observable {
     }
     
     public void move() {    //moves the snake in its specified direction
-        //subSnakes.get(0).setPreviousDirection(getDirection());  //sets the previous direction for use in subsequent piece movement
         subSnakes.get(0).setPreviousPostion(subSnakes.get(0).getPosition());
         switch (direction) {
             case UP:    //if the snakes direction is UP
@@ -102,11 +101,6 @@ public class Snake implements Observable {
                 break;
         }
         subSnakes.get(0).notifyObservers();
-        
-        
-//        for (SubSnake subSnake : subSnakes) {
-//            System.out.println(subSnake.getXPosition()+ " " + subSnake.getYPosition());
-//        }
         
         notifyObservers();  //notifies the list of observers to the snake instance
     }
