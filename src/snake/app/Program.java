@@ -96,6 +96,21 @@ public class Program {
         }
     }
     
+    public static void onClose() {
+        FileOutputStream out = null;
+        try {
+            out = new FileOutputStream(path);
+            ObjectOutputStream writer = new ObjectOutputStream(out);
+            
+            Program.setLeaderboard(Program.observableLeaderboardToLeaderboard(Program.getObservableLeaderboard()));
+            
+            writer.writeObject(Program.getLeaderboard());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public static ObservableList<ObservableLeaderboardEntry> readLeaderboard() {
         
         FileInputStream in = null;

@@ -52,6 +52,7 @@ public class SnakeMenuController implements Initializable {
         try {
             Collections.sort(Program.getObservableLeaderboard());
             GridPane grid = FXMLLoader.load(getClass().getResource("../ui/snakeLeaderboard.fxml"));
+            Program.onClose();
             stage.setScene(new Scene(grid));
         } catch (IOException e) {
             e.printStackTrace();
