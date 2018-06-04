@@ -1,7 +1,5 @@
 package game;
 
-import java.awt.event.KeyEvent;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -86,14 +84,15 @@ public class Pong extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	} 
+	}
 
 	public void run(GraphicsContext g) {
 		if (startGame) {
 			playerPaddle1.move();
 			playerPaddle2.move();
 			ball.move();
-			ball.checkCollision(paddle);
+			ball.checkCollision(playerPaddle1);
+			ball.checkCollision(playerPaddle2);
 		}
 
 		paint(g);
