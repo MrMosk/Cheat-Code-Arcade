@@ -1,8 +1,10 @@
 package game;
 
 import javafx.animation.KeyFrame;
+import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -98,7 +100,7 @@ public class Pong extends Application {
 
 		paint(g);
 		
-		score();
+		endGameCondition(g);
 	}
 	
 	public void paint(GraphicsContext g) {
@@ -108,11 +110,13 @@ public class Pong extends Application {
 		
 		// Centers & redraws pall past p1 paddle
 		if (ball.getX() < -10) {
+			player.setP2Score(player.getP2Score() + 1); // Increments p2 score
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(g);
 		// Centers & redraws ball past p2 paddle
 		} else if (ball.getX() > 710) {
+			player.setP1Score(player.getP1Score() + 1); // Increments p2 score
 			ball.setX(350);
 			ball.setY(250);
 			ball.draw(g);
@@ -135,13 +139,11 @@ public class Pong extends Application {
 		g.fillText("" + player.getP2Score(), GAME_WIDTH / 4 * 3, GAME_HEIGHT / 16);
 	}
 	
-	public void score() {
-		// P1 Scores
-		if (ball.getX() > GAME_WIDTH) {
-			player.setP1Score(player.getP1Score() + 1);
-		//P2 Scores
-		} else if (ball.getX() < 0) {
-			player.setP2Score(player.getP2Score() + 1);
+	public void endGameCondition(GraphicsContext g) {
+		if (player.getP1Score() == 5 || player.getP2Score() == 5) {
+			g.setFill(Color.WHITE);
+			g.fillText("GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2);
+			//Platform.exit();
 		}
 	}
 
