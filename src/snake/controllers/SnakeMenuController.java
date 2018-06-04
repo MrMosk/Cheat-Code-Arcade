@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -35,7 +36,14 @@ public class SnakeMenuController implements Initializable {
     
     @FXML
     void exitButtonClickedSnake(ActionEvent event) {
+        Stage stage = (Stage) exitButtonSnake.getScene().getWindow();
     
+        try {
+            AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("../../application/cheatcodes.fxml"));
+            stage.setScene(new Scene(anchorPane));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML

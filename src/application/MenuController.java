@@ -8,10 +8,12 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import snake.app.Program;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 
 public class MenuController implements Initializable {
     
@@ -32,6 +34,8 @@ public class MenuController implements Initializable {
     
         try {
             GridPane grid = FXMLLoader.load(getClass().getResource("../snake/ui/snakeMenu.fxml"));
+            
+            stage.setOnCloseRequest(Program::onClose);
             stage.setScene(new Scene(grid));
         } catch (IOException e) {
             e.printStackTrace();
