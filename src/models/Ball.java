@@ -7,7 +7,14 @@ public class Ball {
 	
 	PlayerPaddle playerPaddle;
 	Player player;
+	
 	double xVol, yVol, x, y;
+	double centerBall = 10;
+	double ballSize = 20;
+	int screenTopBound = 10;
+	int screenBotBound = 490;
+	int paddleOneBound = 50;
+	int paddleTwoBound = 650;
 
 	public Ball() {
 		x = 350;
@@ -18,16 +25,16 @@ public class Ball {
 
 	public void draw(GraphicsContext g) {
 		g.setFill(Color.WHITE);
-		g.fillOval((int) x - 10, (int) y - 10, 20, 20);
+		g.fillOval((int) x - centerBall, (int) y - centerBall, ballSize, ballSize);
 	}
 
-	public void checkCollision(Paddle p1) {
-		if (x <= 50) {
-			if (y >= p1.getY() && y <= p1.getY() + 80) {
+	public void checkCollision(PlayerPaddle p1) {
+		if (x <= paddleOneBound) {
+			if (y >= p1.getY() && y <= p1.getY() + p1.getPaddleHeight()) {
 				xVol = -xVol;
 			}
-		} else if (x >= 650) {
-			if (y >= p1.getY() && y <= p1.getY() + 80) {
+		} else if (x >= paddleTwoBound) {
+			if (y >= p1.getY() && y <= p1.getY() + p1.getPaddleHeight()) {
 				xVol = -xVol;
 			}
 		}
@@ -36,10 +43,10 @@ public class Ball {
 	public void move() {
 		x += xVol;
 		y += yVol;
-		if (y < 10) {
+		if (y < screenTopBound) {
 			yVol = -yVol;
 		}
-		if (y > 490) {
+		if (y > screenBotBound) {
 			yVol = -yVol;
 		}
 	}
