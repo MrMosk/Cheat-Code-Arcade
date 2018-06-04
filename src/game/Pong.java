@@ -1,24 +1,24 @@
 package game;
 
 import javafx.animation.KeyFrame;
-import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import models.*;
+import models.Ball;
+import models.Paddle;
+import models.Player;
+import models.PlayerPaddle;
 
 public class Pong extends Application {
 	
 	Ball ball;
+	Leaderboard leaderboard;
 	Player player;
 	Paddle paddle;
 	PlayerPaddle playerPaddle1;
@@ -26,10 +26,13 @@ public class Pong extends Application {
 	
 	public final int GAME_WIDTH = 700;
 	public final int GAME_HEIGHT = 500;
+	public final int POINTS_TO_WIN = 1;
+	
+	public boolean gameWin = false;
 	public boolean startGame = false;
 	
-	double screenX = 0;
-	double screenY = 0;
+	public double screenX = 0;
+	public double screenY = 0;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -37,9 +40,19 @@ public class Pong extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
+		
 		try {
-			Canvas canvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
-			GraphicsContext g = canvas.getGraphicsContext2D();
+			/**
+			 * PING MENU
+			 */
+			// MAX PANE
+			Pane root = new Pane();
+			
+			// Declare Canvas
+			Canvas pingCanvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
+			GraphicsContext g = pingCanvas.getGraphicsContext2D();
+			
+			// Declare Timeline
 			Timeline timeLine = new Timeline(new KeyFrame(Duration.millis(10), e -> run(g)));
 			timeLine.setCycleCount(Timeline.INDEFINITE);
 			
@@ -49,11 +62,11 @@ public class Pong extends Application {
 			ball = new Ball();
 			player = new Player();
 			
-			canvas.setFocusTraversable(true); // Necessary for movement
+			pingCanvas.setFocusTraversable(true); // NECESSARY FOR MOVEMENT
 			
-			// Start Game
-			canvas.setOnMouseClicked(keyEvent -> {
-				if (startGame) {
+			// Start Game or Pause
+			pingCanvas.setOnMouseClicked(keyEvent -> {
+				if (startGame && !gameWin) {
 					startGame = false;
 				} else if (!startGame) {
 					startGame = true;
@@ -61,7 +74,7 @@ public class Pong extends Application {
 			});
 			
 			// Move paddles on key press
-			canvas.setOnKeyPressed(keyEvent -> {
+			pingCanvas.setOnKeyPressed(keyEvent -> {
 				switch (keyEvent.getCode()) {
 					case W: playerPaddle1.setGoingUp(true); break;
 					case S: playerPaddle1.setGoingDown(true); break;
@@ -71,7 +84,7 @@ public class Pong extends Application {
 		    });
 			
 			// Stop moving paddles on key release
-			canvas.setOnKeyReleased(keyEvent -> {
+			pingCanvas.setOnKeyReleased(keyEvent -> {
 				switch (keyEvent.getCode()) {
 					case W: playerPaddle1.setGoingUp(false); break;
 					case S: playerPaddle1.setGoingDown(false); break;
@@ -80,10 +93,15 @@ public class Pong extends Application {
 				}
 		    });
 			
-			primaryStage.setScene(new Scene(new StackPane(canvas)));
+			root.getChildren().add(pingCanvas);
+			
+			Scene pingScene = new Scene(root, GAME_WIDTH, GAME_HEIGHT);
+			
+			primaryStage.setScene(pingScene);
 			
 			primaryStage.show();
 			timeLine.play();
+
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -99,7 +117,7 @@ public class Pong extends Application {
 		}
 
 		paint(g);
-		
+
 		endGameCondition(g);
 	}
 	
@@ -140,9 +158,11 @@ public class Pong extends Application {
 	}
 	
 	public void endGameCondition(GraphicsContext g) {
-		if (player.getP1Score() == 5 || player.getP2Score() == 5) {
+		if (player.getP1Score() == POINTS_TO_WIN || player.getP2Score() == POINTS_TO_WIN) {
+			gameWin = true;
 			g.setFill(Color.WHITE);
-			g.fillText("GAME OVER", GAME_WIDTH / 2, GAME_HEIGHT / 2);
+			g.fillText("GAME OVER", GAME_WIDTH / 2 - 37, GAME_HEIGHT / 3);
+			startGame = false;
 			//Platform.exit();
 		}
 	}

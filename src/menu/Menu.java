@@ -39,7 +39,7 @@ public class Menu extends Application {
             Scene scene = new Scene(rootGroup, 600, 600, Color.WHITESMOKE);
             Pong ping = new Pong();
             //set scene to stage
-            stage.setScene(scene);
+            stage.setScene(ping.);
  
             //set title to stage
             stage.setTitle("Pong alpha");
