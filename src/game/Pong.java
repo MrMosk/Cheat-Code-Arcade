@@ -45,6 +45,7 @@ public class Pong extends Application {
 			playerPaddle1 = new PlayerPaddle(1);
 			playerPaddle2 = new PlayerPaddle(2);
 			ball = new Ball();
+			player = new Player();
 			
 			canvas.setFocusTraversable(true); // Necessary for movement
 			
@@ -97,7 +98,7 @@ public class Pong extends Application {
 
 		paint(g);
 		
-		//score();
+		score();
 	}
 	
 	public void paint(GraphicsContext g) {
@@ -129,17 +130,17 @@ public class Pong extends Application {
 		
 		g.fillText("X: " + screenX + " Y: " + screenY, 600, 100);
 		
-		//g.setFill(Color.WHITE);
-		//g.fillText("" + player.getP1Score(), GAME_WIDTH / 4, GAME_HEIGHT / 16);
-		//g.fillText("" + player.getP2Score(), GAME_WIDTH / 4 * 3, GAME_HEIGHT / 16);
+		g.setFill(Color.WHITE);
+		g.fillText("" + player.getP1Score(), GAME_WIDTH / 4, GAME_HEIGHT / 16);
+		g.fillText("" + player.getP2Score(), GAME_WIDTH / 4 * 3, GAME_HEIGHT / 16);
 	}
 	
 	public void score() {
 		// P1 Scores
-		if (ball.getX() > GAME_WIDTH - 10) {
+		if (ball.getX() > GAME_WIDTH) {
 			player.setP1Score(player.getP1Score() + 1);
 		//P2 Scores
-		} else if (ball.getX() < 10) {
+		} else if (ball.getX() < 0) {
 			player.setP2Score(player.getP2Score() + 1);
 		}
 	}
