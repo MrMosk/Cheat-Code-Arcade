@@ -17,7 +17,7 @@ import pong.game.*;
 
 public class PongMenuController implements Initializable{
 	
-	Pong ping;
+	Pong ping = new Pong();
     
     @FXML
     private Button playButton;
@@ -30,8 +30,9 @@ public class PongMenuController implements Initializable{
     
     @FXML
     void playButtonClicked(MouseEvent event) {
-        System.out.println("I Live");
+        Stage stage = (Stage) playButton.getScene().getWindow();
         
+        ping.start(stage);
     }
     
     @FXML
