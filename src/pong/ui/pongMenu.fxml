@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pong.controllers.PongMenuController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pong.controllers.PongMenuController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -18,14 +18,24 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label text="Pong!" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+        <Label text="PONG" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER">
          <font>
-            <Font size="76.0" />
+            <Font name="OCR A Extended" size="76.0" />
          </font></Label>
-        <Button fx:id="playButton" maxHeight="50.0" maxWidth="150.0" minHeight="50.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#playButtonClicked" prefHeight="50.0" prefWidth="150.0" text="Play" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-        <Button fx:id="leaderboardButton" maxHeight="50.0" maxWidth="150.0" minHeight="50.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#leaderboardButtonClicked" prefHeight="50.0" prefWidth="150.0" text="Leaderboard" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-        <Button fx:id="exitButton" maxHeight="50.0" maxWidth="150.0" minHeight="50.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#exitButtonClicked" prefHeight="50.0" prefWidth="150.0" text="Exit to main" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+        <Button fx:id="playButton" maxHeight="50.0" maxWidth="203.0" minHeight="50.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#playButtonClicked" prefHeight="50.0" prefWidth="203.0" text="PLAY" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+         <font>
+            <Font name="OCR A Extended" size="18.0" />
+         </font></Button>
+        <Button fx:id="leaderboardButton" maxHeight="50.0" maxWidth="202.0" minHeight="50.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#leaderboardButtonClicked" prefHeight="50.0" prefWidth="202.0" text="LEADERBOARD" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+         <font>
+            <Font name="OCR A Extended" size="18.0" />
+         </font></Button>
+        <Button fx:id="exitButton" maxHeight="50.0" maxWidth="200.0" minHeight="50.0" minWidth="150.0" mnemonicParsing="false" onMouseClicked="#exitButtonClicked" prefHeight="50.0" prefWidth="200.0" text="EXIT TO MAIN" textFill="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
+         <font>
+            <Font name="OCR A Extended" size="18.0" />
+         </font></Button>
     </children>
 </GridPane>
