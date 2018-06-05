@@ -40,7 +40,7 @@ public class MenuController implements Initializable {
         try {
             GridPane grid = FXMLLoader.load(getClass().getResource("../snake/ui/snakeMenu.fxml"));
             
-            stage.setOnCloseRequest(Program::onClose);
+//            stage.setOnCloseRequest(Program::onClose);
             stage.setScene(new Scene(grid));
         } catch (IOException e) {
             e.printStackTrace();

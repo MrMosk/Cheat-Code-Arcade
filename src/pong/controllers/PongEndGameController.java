@@ -5,35 +5,36 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import pong.game.Leaderboard;
+import pong.models.Player;
 import pong.models.PongOLB;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PongLeaderboardController implements Initializable {
+public class PongEndGameController implements Initializable {
+    private Player player;
     
     @FXML
-    private TableView<PongOLB> leaderboardTable;
+    private Button confirmButton;
     
     @FXML
-    private TableColumn<PongOLB, String> entryNameColumn;
+    private TextField textField;
     
     @FXML
-    private TableColumn<PongOLB, String> entryScoreColumn;
+    void confimButtonClicked(MouseEvent event) {
+        Leaderboard.getOlbScores().add(new PongOLB(textField.getText(),
+                ((player.getP1Score()>player.getP2Score()) ? player.getP1Score() : player.getP2Score()) +
+                        "-" + ((player.getP1Score()>player.getP2Score()) ? player.getP2Score() : player.getP1Score())));
     
-    @FXML
-    private Button exitButton;
+        Leaderboard.onClose();
     
-    @FXML
-    void exitButtonClicked(MouseEvent event) {
-        Stage stage = (Stage) exitButton.getScene().getWindow();
+        Stage stage = (Stage) confirmButton.getScene().getWindow();
         try {
             GridPane grid = FXMLLoader.load(getClass().getResource("../ui/pongMenu.fxml"));
             stage.setScene(new Scene(grid));
@@ -44,8 +45,10 @@ public class PongLeaderboardController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        leaderboardTable.setItems(Leaderboard.getOlbScores());
-        entryNameColumn.setCellValueFactory(rowData -> rowData.getValue().entryNameProperty());
-        entryScoreColumn.setCellValueFactory(rowData -> rowData.getValue().entryScoreProperty());
+    
+    }
+    
+    public void initData(Player player) {
+        this.player = player;
     }
 }

@@ -48,7 +48,7 @@ public class SnakeEndGameController implements Initializable {
     @FXML
     void saveButtonClicked(MouseEvent event) {
         Program.getObservableLeaderboard().add(new ObservableLeaderboardEntry(nameField.getText(),Integer.parseInt(scoreLabel.getText())));
-        
+        Program.onClose();
         exitButtonClicked(event);
     }
     

@@ -2,51 +2,43 @@ package pong.game;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import pong.models.PongLeaderboardEntry;
-import snake.app.Program;
-import snake.models.LeaderboardEntry;
-import snake.models.ObservableLeaderboardEntry;
+import pong.models.PongLB;
+import pong.models.PongOLB;
 
-import java.beans.XMLDecoder;
-import java.beans.XMLEncoder;
+
 import java.io.*;
 import java.util.ArrayList;
 
 public class Leaderboard {
-    private static String path = "pongLeaderboard.xml";
+    private static String path = "pongLeaderboard.ccalb";
     private static boolean isFirstLaunch = true;
-    private static ObservableList<PongLeaderboardEntry> scores = FXCollections.observableArrayList();
-    
-    public static ObservableList<PongLeaderboardEntry> getScores() {
-        return scores;
-    }
-    
-    public static void setScores(ObservableList<PongLeaderboardEntry> scores) {
-        Leaderboard.scores = scores;
-    }
+    private static ObservableList<PongOLB> olbScores = FXCollections.observableArrayList();
+    private static ArrayList<PongLB> lbScores = new ArrayList<>();
     
     public static void onClose() {
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(path);
-            XMLEncoder writer = new XMLEncoder(out);
-        
-            writer.writeObject(scores);
+            ObjectOutputStream writer = new ObjectOutputStream(out);
+            
+            Leaderboard.setLbScores(Leaderboard.observableLeaderboardToLeaderboard(Leaderboard.getOlbScores()));
+            
+            writer.writeObject(Leaderboard.getLbScores());
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    public static ObservableList<PongLeaderboardEntry> readLeaderboard() {
+    public static ObservableList<PongOLB> readLeaderboard() {
         
         FileInputStream in = null;
-        ObservableList<PongLeaderboardEntry> retVal = FXCollections.observableArrayList();
+        ArrayList<PongLB> retVal = new ArrayList<>();
         if (isFirstLaunch) {
             try {
                 in = new FileInputStream(path);
-                XMLDecoder reader = new XMLDecoder(in);
-                retVal = (ObservableList<PongLeaderboardEntry>) reader.readObject();
+                ObjectInputStream reader = new ObjectInputStream(in);
+                retVal = (ArrayList<PongLB>) reader.readObject();
                 reader.close();
                 isFirstLaunch = false;
             } catch (IOException e) {
@@ -58,9 +50,46 @@ public class Leaderboard {
                     }
                 }
                 e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
             }
         }
         
-        return retVal;
+        return Leaderboard.leaderboardToObservbleLeaderboard(retVal);
+    }
+    
+    public static ArrayList<PongLB> observableLeaderboardToLeaderboard(ObservableList<PongOLB> olbScores) {
+        for (int i = 0; i < olbScores.size(); i++) {
+            String entryScore = olbScores.get(i).getEntryScore();
+            String entryName = olbScores.get(i).getEntryName();
+            lbScores.add(new PongLB(entryName, entryScore));
+        }
+        return lbScores;
+    }
+    
+    public static ObservableList<PongOLB> leaderboardToObservbleLeaderboard(ArrayList<PongLB> leaderboard) {
+        for (PongLB aLeaderboard : leaderboard) {
+            String entryScore = aLeaderboard.getEntryScore();
+            String entryName = aLeaderboard.getEntryName();
+            olbScores.add(new PongOLB(entryName, entryScore));
+        }
+        return olbScores;
+    }
+    
+    
+    public static ObservableList<PongOLB> getOlbScores() {
+        return olbScores;
+    }
+    
+    public static void setOlbScores(ObservableList<PongOLB> olbScores) {
+        Leaderboard.olbScores = olbScores;
+    }
+    
+    public static ArrayList<PongLB> getLbScores() {
+        return lbScores;
+    }
+    
+    public static void setLbScores(ArrayList<PongLB> lbScores) {
+        Leaderboard.lbScores = lbScores;
     }
 }

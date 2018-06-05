@@ -15,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pong.controllers.PongEndGameController;
 import pong.models.*;
 
 public class Pong extends Application {
@@ -175,10 +176,20 @@ public class Pong extends Application {
 			g.fillText("GAME OVER", GAME_WIDTH / 2 - 37, GAME_HEIGHT / 3);
 			startGame = false;
 			
+			
+			
+			
+			
 			timeLine.stop();
 			
 			try {
-	            GridPane grid = FXMLLoader.load(getClass().getResource("../ui/pongMenu.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("../ui/pongEndGame.fxml"));
+	            GridPane grid = loader.load();
+				
+				PongEndGameController controller = loader.getController();
+	   
+				controller.initData(player);
+				
 	            newStage.setScene(new Scene(grid));
 	        } catch (IOException e) {
 	            e.printStackTrace();

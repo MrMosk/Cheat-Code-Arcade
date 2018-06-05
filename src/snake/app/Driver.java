@@ -26,7 +26,7 @@ public class Driver extends Application {
 		Scene scene = new Scene(grid, 600, 650);
         primaryStage.setScene(scene);
         
-        primaryStage.setOnCloseRequest(Program::onClose);
+//        primaryStage.setOnCloseRequest(Program::onClose);
         
         primaryStage.setResizable(false);
         

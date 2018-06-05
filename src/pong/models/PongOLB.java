@@ -2,12 +2,13 @@ package pong.models;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.fxml.Initializable;
 
-public class PongLeaderboardEntry {
+public class PongOLB {
     private StringProperty entryName = new SimpleStringProperty();
     private StringProperty entryScore = new SimpleStringProperty();
     
-    public PongLeaderboardEntry(String entryName, String entryScore) {
+    public PongOLB(String entryName, String entryScore) {
         setEntryName(entryName);
         setEntryScore(entryScore);
     }
