@@ -81,5 +81,4 @@ public class SnakeMenuController implements Initializable {
         this.leaderboard = leaderboard;
     }
     
-    
 }

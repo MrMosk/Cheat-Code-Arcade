@@ -10,6 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import pong.game.Leaderboard;
+import pong.models.PongLeaderboardEntry;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,13 +20,13 @@ import java.util.ResourceBundle;
 public class PongLeaderboardController implements Initializable {
     
     @FXML
-    private TableView<?> leaderboardTable;
+    private TableView<PongLeaderboardEntry> leaderboardTable;
     
     @FXML
-    private TableColumn<?, ?> entryNameColumn;
+    private TableColumn<PongLeaderboardEntry, String> entryNameColumn;
     
     @FXML
-    private TableColumn<?, ?> entryScoreColumn;
+    private TableColumn<PongLeaderboardEntry, String> entryScoreColumn;
     
     @FXML
     private Button exitButton;
@@ -42,6 +44,8 @@ public class PongLeaderboardController implements Initializable {
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    
+        leaderboardTable.setItems(Leaderboard.getScores());
+        entryNameColumn.setCellValueFactory(rowData -> rowData.getValue().entryNameProperty());
+        entryScoreColumn.setCellValueFactory(rowData -> rowData.getValue().entryScoreProperty());
     }
 }
