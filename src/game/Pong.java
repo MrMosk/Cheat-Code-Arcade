@@ -18,7 +18,7 @@ import models.PlayerPaddle;
 public class Pong extends Application {
 	
 	Ball ball;
-	Leaderboard leaderboard;
+
 	Player player;
 	Paddle paddle;
 	PlayerPaddle playerPaddle1;
