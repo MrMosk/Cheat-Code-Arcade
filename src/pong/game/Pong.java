@@ -1,11 +1,16 @@
 package pong.game;
 
+import java.io.IOException;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -20,6 +25,9 @@ public class Pong extends Application {
 	Paddle paddle;
 	PlayerPaddle playerPaddle1;
 	PlayerPaddle playerPaddle2;
+	
+	Stage newStage;
+	Timeline timeLine;
 	
 	public final int GAME_WIDTH = 700;
 	public final int GAME_HEIGHT = 500;
@@ -42,6 +50,8 @@ public class Pong extends Application {
 			/**
 			 * PING MENU
 			 */
+			newStage = primaryStage;
+			
 			// MAX PANE
 			Pane root = new Pane();
 			
@@ -50,7 +60,7 @@ public class Pong extends Application {
 			GraphicsContext g = pingCanvas.getGraphicsContext2D();
 			
 			// Declare Timeline
-			Timeline timeLine = new Timeline(new KeyFrame(Duration.millis(10), e -> run(g)));
+			timeLine = new Timeline(new KeyFrame(Duration.millis(10), e -> run(g)));
 			timeLine.setCycleCount(Timeline.INDEFINITE);
 			
 			startGame = false;
@@ -98,6 +108,10 @@ public class Pong extends Application {
 			
 			primaryStage.show();
 			timeLine.play();
+			
+			if (gameWin) {
+				
+			}
 
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -160,7 +174,15 @@ public class Pong extends Application {
 			g.setFill(Color.WHITE);
 			g.fillText("GAME OVER", GAME_WIDTH / 2 - 37, GAME_HEIGHT / 3);
 			startGame = false;
-			//Platform.exit();
+			
+			timeLine.stop();
+			
+			try {
+	            GridPane grid = FXMLLoader.load(getClass().getResource("../ui/pongMenu.fxml"));
+	            newStage.setScene(new Scene(grid));
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 		}
 	}
 
