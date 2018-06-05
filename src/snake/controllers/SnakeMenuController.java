@@ -59,7 +59,6 @@ public class SnakeMenuController implements Initializable {
     void playButtonClickedSnake(ActionEvent event) {
         Stage stage = (Stage) playButtonSnake.getScene().getWindow();
         try {
-            Program.onClose();
             GridPane grid = FXMLLoader.load(getClass().getResource("../ui/snakeGame.fxml"));
             stage.setScene(new Scene(grid, 600, 650));
         } catch (IOException e) {
