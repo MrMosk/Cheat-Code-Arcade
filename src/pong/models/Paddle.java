@@ -1,9 +1,9 @@
-package pong.models;
+package models;
 
-import java.awt.Graphics;
+import javafx.scene.canvas.GraphicsContext;
 
 public interface Paddle {
-	public void draw(Graphics g);
+	public void draw(GraphicsContext g);
 	public void move();
 	public int getY();
 }

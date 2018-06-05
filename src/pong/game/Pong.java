@@ -1,144 +1,169 @@
-package pong.game;
+package game;
 
-import java.applet.Applet;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import models.Ball;
+import models.Paddle;
+import models.Player;
+import models.PlayerPaddle;
 
-import pong.models.*;
-
-public class Pong extends Applet implements Runnable, KeyListener {
-
-	public final int WIDTH = 700, HEIGHT = 500;
-	Thread thread;
-	PlayerPaddle p1;
-	PlayerPaddle p2;
+public class Pong extends Application {
+	
 	Ball ball;
-	boolean startGame;
-	Graphics special;
-	Image img;
-	Player player;
-	PlayerPaddle playerPaddle;
-	int p1Score;
-	int p2Score;
 
-	public void init() {
-		this.resize(WIDTH, HEIGHT);
-		startGame = false;
-		this.addKeyListener(this);
-		p1 = new PlayerPaddle(1);
-		p2 = new PlayerPaddle(2);
-		ball = new Ball();
-		img = createImage(WIDTH, HEIGHT);
-		special = img.getGraphics();
-		thread = new Thread(this);
-		thread.start();
+	Player player;
+	Paddle paddle;
+	PlayerPaddle playerPaddle1;
+	PlayerPaddle playerPaddle2;
+	
+	public final int GAME_WIDTH = 700;
+	public final int GAME_HEIGHT = 500;
+	public final int POINTS_TO_WIN = 1;
+	
+	public boolean gameWin = false;
+	public boolean startGame = false;
+	
+	public double screenX = 0;
+	public double screenY = 0;
+	
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	@Override
+	public void start(Stage primaryStage) {
+		
+		try {
+			/**
+			 * PING MENU
+			 */
+			// MAX PANE
+			Pane root = new Pane();
+			
+			// Declare Canvas
+			Canvas pingCanvas = new Canvas(GAME_WIDTH, GAME_HEIGHT);
+			GraphicsContext g = pingCanvas.getGraphicsContext2D();
+			
+			// Declare Timeline
+			Timeline timeLine = new Timeline(new KeyFrame(Duration.millis(10), e -> run(g)));
+			timeLine.setCycleCount(Timeline.INDEFINITE);
+			
+			startGame = false;
+			playerPaddle1 = new PlayerPaddle(1);
+			playerPaddle2 = new PlayerPaddle(2);
+			ball = new Ball();
+			player = new Player();
+			
+			pingCanvas.setFocusTraversable(true); // NECESSARY FOR MOVEMENT
+			
+			// Start Game or Pause
+			pingCanvas.setOnMouseClicked(keyEvent -> {
+				if (startGame && !gameWin) {
+					startGame = false;
+				} else if (!startGame) {
+					startGame = true;
+				}
+			});
+			
+			// Move paddles on key press
+			pingCanvas.setOnKeyPressed(keyEvent -> {
+				switch (keyEvent.getCode()) {
+					case W: playerPaddle1.setGoingUp(true); break;
+					case S: playerPaddle1.setGoingDown(true); break;
+					case UP: playerPaddle2.setGoingUp(true); break;
+					case DOWN: playerPaddle2.setGoingDown(true); break;
+				}
+		    });
+			
+			// Stop moving paddles on key release
+			pingCanvas.setOnKeyReleased(keyEvent -> {
+				switch (keyEvent.getCode()) {
+					case W: playerPaddle1.setGoingUp(false); break;
+					case S: playerPaddle1.setGoingDown(false); break;
+					case UP: playerPaddle2.setGoingUp(false); break;
+					case DOWN: playerPaddle2.setGoingDown(false); break;
+				}
+		    });
+			
+			root.getChildren().add(pingCanvas);
+			
+			Scene pingScene = new Scene(root, GAME_WIDTH, GAME_HEIGHT);
+			
+			primaryStage.setScene(pingScene);
+			
+			primaryStage.show();
+			timeLine.play();
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	public void paint(Graphics g) {
+	public void run(GraphicsContext g) {
+		if (startGame) {
+			playerPaddle1.move();
+			playerPaddle2.move();
+			ball.move();
+			ball.checkCollision(playerPaddle1);
+			ball.checkCollision(playerPaddle2);
+		}
+
+		paint(g);
+
+		endGameCondition(g);
+	}
+	
+	public void paint(GraphicsContext g) {
 		// Background
-		special.setColor(Color.black);
-		special.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setFill(Color.BLACK);
+		g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		
 		// Centers & redraws pall past p1 paddle
 		if (ball.getX() < -10) {
+			player.setP2Score(player.getP2Score() + 1); // Increments p2 score
 			ball.setX(350);
 			ball.setY(250);
-			ball.draw(special);
+			ball.draw(g);
 		// Centers & redraws ball past p2 paddle
 		} else if (ball.getX() > 710) {
+			player.setP1Score(player.getP1Score() + 1); // Increments p2 score
 			ball.setX(350);
 			ball.setY(250);
-			ball.draw(special);
+			ball.draw(g);
 		// Redraws paddles & ball
 		} else {
-			p1.draw(special);
-			p2.draw(special);
-			ball.draw(special);
+			playerPaddle1.draw(g);
+			playerPaddle2.draw(g);
+			ball.draw(g);
 		}
 		
 		// At start, displays message
 		if (!startGame) {
-			special.drawString("Press enter to begin", 310, 130);
-			special.drawString("Press P to pause", 290, 110);
+			g.fillText("Click on screen to begin!", 100, 100);
 		}
 		
-		special.setColor(Color.WHITE);
-		special.drawString("" + p1Score, WIDTH / 4, HEIGHT / 16);
-		special.drawString("" + p2Score, WIDTH / 4 * 3, HEIGHT / 16);
+		g.fillText("X: " + screenX + " Y: " + screenY, 600, 100);
 		
-		g.drawImage(img, 0, 0, this);
-	}
-
-	public void update(Graphics g) {
-		paint(g);
-	}
-
-	public void run() {
-		for (;;) {
-
-			if (startGame) {
-				p1.move();
-				p2.move();
-				ball.move();
-				ball.checkCollision(p1, p2);
-			}
-
-			repaint();
-			
-			//score();
-			
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public void keyPressed(KeyEvent ke) {
-		if (ke.getKeyCode() == KeyEvent.VK_W) {
-			p1.setGoingUp(true);
-		} else if (ke.getKeyCode() == KeyEvent.VK_S) {
-			p1.setGoingDown(true);
-		}
-		if (ke.getKeyCode() == KeyEvent.VK_I) {
-			p2.setGoingUp(true);
-		} else if (ke.getKeyCode() == KeyEvent.VK_K) {
-			p2.setGoingDown(true);
-		} else if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-			startGame = true;
-		} else if (ke.getKeyCode() == KeyEvent.VK_P) {
-			startGame = false;
-		}
-	}
-
-	public void keyReleased(KeyEvent ke) {
-		if (ke.getKeyCode() == KeyEvent.VK_W) {
-			p1.setGoingUp(false);
-		} else if (ke.getKeyCode() == KeyEvent.VK_S) {
-			p1.setGoingDown(false);
-		}
-		if (ke.getKeyCode() == KeyEvent.VK_I) {
-			p2.setGoingUp(false);
-		} else if (ke.getKeyCode() == KeyEvent.VK_K) {
-			p2.setGoingDown(false);
-		}
-	}
-
-	public void keyTyped(KeyEvent ke) {
-		// REQUIRED
+		g.setFill(Color.WHITE);
+		g.fillText("" + player.getP1Score(), GAME_WIDTH / 4, GAME_HEIGHT / 16);
+		g.fillText("" + player.getP2Score(), GAME_WIDTH / 4 * 3, GAME_HEIGHT / 16);
 	}
 	
-	public void score() {
-		// P1 Scores
-		if (ball.getX() > WIDTH - 10) {
-			player.setP1Score(player.getP1Score() + 1);
-		//P2 Scores
-		} else if (ball.getX() < 10) {
-			player.setP2Score(player.getP2Score() + 1);
+	public void endGameCondition(GraphicsContext g) {
+		if (player.getP1Score() == POINTS_TO_WIN || player.getP2Score() == POINTS_TO_WIN) {
+			gameWin = true;
+			g.setFill(Color.WHITE);
+			g.fillText("GAME OVER", GAME_WIDTH / 2 - 37, GAME_HEIGHT / 3);
+			startGame = false;
+			//Platform.exit();
 		}
 	}
 
