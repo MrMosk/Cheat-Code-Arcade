@@ -13,8 +13,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import pong.game.*;
 
 public class PongMenuController implements Initializable{
+	
+	Pong ping;
     
     @FXML
     private Button playButton;
@@ -55,8 +58,7 @@ public class PongMenuController implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // TODO Auto-generated method stub
-        
+    	
     }
     
 }

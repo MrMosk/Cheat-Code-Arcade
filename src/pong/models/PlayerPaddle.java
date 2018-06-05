@@ -1,4 +1,4 @@
-package models;
+package pong.models;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;

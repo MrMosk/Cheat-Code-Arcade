@@ -1,4 +1,4 @@
-package game;
+package pong.game;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -10,10 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import models.Ball;
-import models.Paddle;
-import models.Player;
-import models.PlayerPaddle;
+import pong.models.*;
 
 public class Pong extends Application {
 	
