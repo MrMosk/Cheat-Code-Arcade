@@ -1,4 +1,4 @@
-package driver;
+package pong.driver;
 
 import javafx.application.Application;
 

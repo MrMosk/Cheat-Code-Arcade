@@ -41,7 +41,7 @@ public class SnakeGameController implements Initializable, Observer {
     private GridPane gameBoard;
     
     @FXML
-    void keyPressedSnake(KeyEvent event) {  //key pressed event in the game grid
+    void keyPressedSnake(KeyEvent event) {  //key pressed event in the pong.game grid
         switch (Program.getSnake().getDirection()) {    //switch based on the direction of the snake, intended to prevent doubling back on oneself
             case UP:    //if snake direction is "up"
                 switch (event.getCode()) {
@@ -132,7 +132,7 @@ public class SnakeGameController implements Initializable, Observer {
             }
         }
     
-        gameBoard.setFocusTraversable(true);      //sets the game space to be in focus, allowing for key capture
+        gameBoard.setFocusTraversable(true);      //sets the pong.game space to be in focus, allowing for key capture
     
         Program.createSnake(20, 20);    //creates the snake instance within the Program class
         Program.addSnakeObserver(this);     //adds this controller to the observers of the snake instance
@@ -205,7 +205,7 @@ public class SnakeGameController implements Initializable, Observer {
             
         
     
-        } catch (ArrayIndexOutOfBoundsException | IllegalStateException e) {    //catchs thrown exceptions, representing game over
+        } catch (ArrayIndexOutOfBoundsException | IllegalStateException e) {    //catchs thrown exceptions, representing pong.game over
             timer.cancel();
             
             int score  = Integer.parseInt(scoreSnake.getText());

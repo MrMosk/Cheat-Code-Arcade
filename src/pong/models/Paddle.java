@@ -1,4 +1,4 @@
-package models;
+package pong.models;
 
 import java.awt.Graphics;
 

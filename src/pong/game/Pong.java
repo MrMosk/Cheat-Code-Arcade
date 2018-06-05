@@ -1,4 +1,4 @@
-package game;
+package pong.game;
 
 import java.applet.Applet;
 import java.awt.Color;
@@ -7,7 +7,7 @@ import java.awt.Image;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import models.*;
+import pong.models.*;
 
 public class Pong extends Applet implements Runnable, KeyListener {
 
