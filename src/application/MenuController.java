@@ -27,7 +27,7 @@ public class MenuController implements Initializable {
     void pongButtonClicked(MouseEvent event) {
         Stage stage = (Stage) pongButton.getScene().getWindow();
         try {
-            GridPane grid = FXMLLoader.load(getClass().getResource("../PongUI.fxml"));
+            GridPane grid = FXMLLoader.load(getClass().getResource("../pong/ui/pongMenu.fxml"));
             stage.setScene(new Scene(grid));
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +37,6 @@ public class MenuController implements Initializable {
     @FXML
     void snakeButtonClicked(MouseEvent event) {
         Stage stage = (Stage) snakeButton.getScene().getWindow();
-    
         try {
             GridPane grid = FXMLLoader.load(getClass().getResource("../snake/ui/snakeMenu.fxml"));
             
@@ -46,8 +45,6 @@ public class MenuController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-    
     }
     
     @Override
