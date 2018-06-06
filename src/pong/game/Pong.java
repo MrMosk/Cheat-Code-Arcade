@@ -32,7 +32,7 @@ public class Pong extends Application {
 	
 	public final int GAME_WIDTH = 700;
 	public final int GAME_HEIGHT = 500;
-	public final int POINTS_TO_WIN = 1;
+	public final int POINTS_TO_WIN = 5;
 	
 	public boolean gameWin = false;
 	public boolean startGame = false;
